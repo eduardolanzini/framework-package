@@ -1,0 +1,6 @@
+ERROR: asdas | 07/11/2020 10:22:04
+
+ERROR: Environment não informado | 07/11/2020 10:28:10
+
+ERROR: Environment não informado | 07/11/2020 10:38:24
+

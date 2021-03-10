@@ -1,0 +1,19 @@
+{
+  "name": "eduardolanzini/framework-package",
+  "description": "Framework Files",
+  "license": "MIT",
+  "minimum-stability":"stable",
+  "authors": [
+    {
+      "name": "Eduardo Lanzini"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "EduardoLanzini\\Framework\\": "/scr"
+    }
+  }
+}

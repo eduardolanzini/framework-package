@@ -1,0 +1,70 @@
+----   13/04/20 03:24:27   ----
+STATUS: 4;
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+
+----------------------
+
+----   13/04/20 03:24:49   ----
+STATUS: 4;
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+
+----------------------
+
+----   13/04/20 03:26:09   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:26:57   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:29:10   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:29:43   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:30:00   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:31:30   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:32:38   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
+----   13/04/20 03:33:23   ----
+REFERENCE: PEDIDO;
+CODE: B17630C5-30EE-4CEB-A65D-4D63D6FA7953;
+STATUS: Disponível;
+
+----------------------
+
