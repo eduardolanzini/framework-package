@@ -27,7 +27,7 @@ Final Class App{
 		session_start();
 
 		define('DS', DIRECTORY_SEPARATOR);
-		define('ROOT', substr(__DIR__,0,-10));
+		define('ROOT', substr(__DIR__,0,-44));
 		define('PATH', $this->config->getPath());
 		define('ENVIRONMENT', $this->config->getEnvironment());
 		define('LAST_URL', isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER'] : '' );
