@@ -34,8 +34,6 @@ Final Class App{
 
 		require_once 'helpers/helpers.php';
 
-		dd(ROOT);
-
 		$router = new Router();
 
 		$router->setBasePath($this->config->getPath());
