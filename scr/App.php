@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework;
+namespace EduardoLanzini\Framework;
 
 use EduardoLanzini\Framework\Config;
 use EduardoLanzini\Framework\Log;
@@ -33,6 +33,8 @@ Final Class App{
 		define('LAST_URL', isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER'] : '' );
 
 		require_once 'helpers/helpers.php';
+
+		dd(ROOT);
 
 		$router = new Router();
 

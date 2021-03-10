@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework;
+namespace EduardoLanzini\Framework;
 
 use EduardoLanzini\Framework\Log;
 use EduardoLanzini\Framework\Auth;
