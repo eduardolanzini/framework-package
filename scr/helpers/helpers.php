@@ -41,6 +41,9 @@ function redirect($uri = null, $msgTitle = null,$msg = null){
 			header('location:'.PATH.'/'.$uri);
 		}
 	}
+
+	// VERY IMPORTANT
+	exit;
 }
 
 function setMsg($msgTitle,$msg = null){
@@ -55,13 +58,12 @@ function setMsg($msgTitle,$msg = null){
 function getMsgTitle(){
 	if (isset($_SESSION['msgTitle'])) {
 		echo $_SESSION['msgTitle'];
-		unset($_SESSION['msgTitle']);
 	}else{
 		return false;
 	}
 }
 
-function deleteMsg(){
+function unsetMsg(){
 	unset($_SESSION['msgTitle']);
 	unset($_SESSION['msg']);
 }
@@ -69,7 +71,6 @@ function deleteMsg(){
 function getMsg(){
 	if (isset($_SESSION['msg'])) {
 		echo $_SESSION['msg'];
-		unset($_SESSION['msg']);
 	}else{
 		return false;
 	}
@@ -135,11 +136,15 @@ function json($var = null){
 }
 
 function data($date){
+	return date('d/m/Y',strtotime($date));
+}
+
+function dataHora($date){
 	return date('d/m/Y à\s\ H:i:s',strtotime($date));
 }
 
 function reais($float){
-	$string = number_format($float, 2, ',', '.');
+	$string = number_format((float)$float, 2, ',', '.');
 	
 	return $string;
 }
@@ -201,4 +206,39 @@ function remove_acentos($string){
 	);
 
 	return strtr($string, $map);
+}
+
+function mes($mes){
+	$map = array(
+		'1' => 'Janeiro',
+		'2' => 'Fevereiro',
+		'3' => 'Março',
+		'4' => 'Abril',
+		'5' => 'Maio',
+		'6' => 'Junho',
+		'7' => 'Julho',
+		'8' => 'Agosto',
+		'9' => 'Setembro',
+		'10' => 'Outubro',
+		'11' => 'Novembro',
+		'12' => 'Dezembro',
+	);
+
+	return strtr($mes, $map);
+}
+
+function elapsed_time(){
+
+	$time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+
+	$time = number_format($time, 2, ',', '.');
+
+	return $time;
+}
+
+function datetime($dt){
+	
+	$dt = str_replace(' ', 'T',$dt);
+
+	return $dt;
 }

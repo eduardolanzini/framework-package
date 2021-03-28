@@ -1,261 +1,32 @@
 <?php
 
-use Core\Log;
+function statusContrato($status){
 
-function dd($v){
-	echo "<pre>";
-	print_r($v);
-	exit;
-}
+	switch ($status) {
 
-function url($uri = null){
-	if ($uri == null || $uri == '/') {
-		return PATH;
-	}else{
-		return PATH.'/'.$uri;
-	}
-}
+		case 'Ativo':
+		$status = "success";
+		break;
 
-function environment(){
-	return 'local';
-}
+		case 'Aguardando':
+		$status = "warning";
+		break;
 
-function redirect($uri = null, $msgTitle = null,$msg = null){
+		case 'Concluído':
+		$status = "info";
+		break;
 
-	if ($msgTitle) {
-		$_SESSION['msgTitle'] = $msgTitle;
-	}
+		case 'Cancelado':
+		$status = "danger";
+		break;
 
-	if ($msg) {
-		$_SESSION['msg'] = $msg;
+		case 'Atrasado':
+		$status = "danger";
+		break;
 	}
 
-	//IMPORTANTE PARA MANTER A SESSION NO REDIRECT
-	session_write_close();
-
-	//var_dump(strpos($uri, 'http'));exit;
-
-	if (strstr($uri,'http')) {
-		header('location:'.$uri);
-	}
-	else{
-		if ($uri == null || $uri == '/') {
-			header('location:'.HTML);
-		}else{
-			header('location:'.HTML.'/'.$uri);
-		}
-	}
+	return $status;
 }
-
-function setMsg($msgTitle,$msg = null){
-
-	$_SESSION['msgTitle'] = $msgTitle;
-
-	if ($msg) {
-		$_SESSION['msg'] = $msg;
-	}
-}
-
-function getMsgTitle(){
-	if (isset($_SESSION['msgTitle'])) {
-		echo $_SESSION['msgTitle'];
-		unset($_SESSION['msgTitle']);
-	}else{
-		return false;
-	}
-}
-
-function deleteMsg(){
-	unset($_SESSION['msgTitle']);
-	unset($_SESSION['msg']);
-}
-
-function getMsg(){
-	if (isset($_SESSION['msg'])) {
-		echo $_SESSION['msg'];
-		unset($_SESSION['msg']);
-	}else{
-		return false;
-	}
-}
-
-function msg(){
-	if (isset($_SESSION['msgTitle']) || isset($_SESSION['msg'])) {
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function img($path = null){
-	if ($path) {
-		return PATH.'/img/'.$path;
-	}else{
-		return false;
-	}
-}
-
-// First image on array
-function fImg($imagem){
-
-	if ($imagem) {
-
-		$imagem = explode(';', $imagem);
-
-		return PATH.'/img/'.$imagem[0];
-	}else{
-		return false;
-	}
-}
-function css($path = null){
-	if ($path) {
-		return PATH.'/css/'.$path;
-	}else{
-		return false;
-	}
-}
-
-function js($path = null){
-	if ($path) {
-		return PATH.'/js/'.$path;
-	}else{
-		return false;
-	}
-}
-
-function media($path = null){
-	if ($path) {
-		return PATH.'/media/'.$path;
-	}else{
-		return false;
-	}
-}
-
-function view($path){
-
-	$path = str_replace('\\', DS,$path);
-	$path = str_replace('/', DS, $path);
-	
-	include VIEW.DS.$path.".php";
-}
-
-
-/*function view($path = null){
-
-	$path = str_replace('\\', DS,$path);
-
-	$path = str_replace('/', DS, $path);
-
-	if ($path) {
-		require VIEW.DS.$path.'.php';
-	}else{
-		return false;
-	}
-}*/
-
-function json($var = null){
-	if ($var) {
-		header("Content-type: application/json; charset=utf-8");
-		return json_encode($var);
-	}else{
-		return false;
-	}
-}
-
-function token(){
-	echo TOKEN;
-}
-
-function data($date){
-	return date('d/m/Y à\s\ H:i:s',strtotime($date));
-}
-
-function reais($float){
-	$string = number_format($float, 2, ',', '.');
-	
-	return $string;
-}
-
-function stringToUrl($campo) {
-
-	$campo = strtolower($campo); // Transforma tudo pra minúsculo
-
-	$padraoreplace = "[^a-zA-Z0-9_]"; // Determina que apenas letras e números e underlines poderão existir
-
-	$array_s = array("á" => "a", "à" => "a", "â" => "a", "ã" => "a", "ä" => "a", "é" => "e", "è" => "e", "ê" => "e", "ë" => "e", "í" => "i", "î" => "i", "ì" => "i", "ï" => "i", "ô" => "o", "õ" => "o", "ó" => "o", "ò" => "o", "ö" => "o", "ú" => "u", "ù" => "u", "û" => "u", "ü" => "u", "ñ" => "n", "ç" => "c", " " => "_"); // array de substituição
-
-	$campo = strtr($campo, $array_s); // Substitui acentos e espaços
-
-	$campo = preg_replace($padraoreplace, "", $campo); // Substitui caracteres especiais por caractere vazio
-
-	return $campo; // Retorna campo
-}
-
-function stringToFloat($campo) {
-
-	$filter1 = array("." => "");
-	$filter2 = array("," => "."); // array de substituição
-
-	$campo = strtr($campo, $filter1);
-	$campo = strtr($campo, $filter2); // Substitui acentos e espaços
-
-	return $campo; // Retorna campo
-}
-
-function remove_acentos($string){
-	$map = array(
-		'á' => 'a',
-		'à' => 'a',
-		'ã' => 'a',
-		'â' => 'a',
-		'é' => 'e',
-		'ê' => 'e',
-		'í' => 'i',
-		'ó' => 'o',
-		'ô' => 'o',
-		'õ' => 'o',
-		'ú' => 'u',
-		'ü' => 'u',
-		'ç' => 'c',
-		'Á' => 'A',
-		'À' => 'A',
-		'Ã' => 'A',
-		'Â' => 'A',
-		'É' => 'E',
-		'Ê' => 'E',
-		'Í' => 'I',
-		'Ó' => 'O',
-		'Ô' => 'O',
-		'Õ' => 'O',
-		'Ú' => 'U',
-		'Ü' => 'U',
-		'Ç' => 'C'
-	);
-
-	return strtr($string, $map);
-}
-
-function mes($mes){
-	$map = array(
-		'1' => 'Janeiro',
-		'2' => 'Fevereiro',
-		'3' => 'Março',
-		'4' => 'Abril',
-		'5' => 'Maio',
-		'6' => 'Junho',
-		'7' => 'Julho',
-		'8' => 'Agosto',
-		'9' => 'Setembro',
-		'10' => 'Outubro',
-		'11' => 'Novembro',
-		'12' => 'Dezembro',
-		
-
-	);
-
-	return strtr($mes, $map);
-}
-
 
 
 function getstatus($status){

@@ -4,6 +4,7 @@ namespace EduardoLanzini\Framework;
 
 use EduardoLanzini\Framework\Config;
 use EduardoLanzini\Framework\Log;
+use EduardoLanzini\Framework\View;
 use EduardoLanzini\Router;
 use EduardoLanzini\DB;
 
@@ -33,18 +34,19 @@ Final Class App{
 		define('LAST_URL', isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER'] : '' );
 
 		require_once 'helpers/helpers.php';
+		require_once 'helpers/customHelpers.php';
 
 		$router = new Router();
 
 		$router->setBasePath($this->config->getPath());
 		$router->setControllerPath(ROOT.DS.'app'.DS.'controllers');
-		$router->setViewPath(ROOT.DS.'app'.DS.'views');
 
 		require_once ROOT.'/app/Routes.php';
 
 		if (!$router->route())
 		{
-			redirect('404');
+			http_response_code(404);
+			View::render(404);
 		}
 	}
 

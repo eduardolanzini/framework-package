@@ -78,6 +78,19 @@ Class Template{
 		}
 	}
 
+	static function add($file){
+		if (file_exists(self::$path . DS. $file . '.php')) 
+		{
+
+			require self::$path . DS. $file . '.php' ;
+
+		}
+		else
+		{
+			Log::error('Template não existente');	
+		}
+	}
+
 	static function section($var){
 		ob_start();
 	}

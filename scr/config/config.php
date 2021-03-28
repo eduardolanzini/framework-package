@@ -17,22 +17,22 @@ $config->setTimezone("America/Sao_Paulo");
 // |     URL CONFIGURATIONS       |
 // ----------------------------------
 
-$config->setLocalPath('http://localhost');
+$config->setLocalPath('http://localhost/automasites/public_html');
 $config->setProductionPath("");
 
 // ----------------------------------
 // |      DATABASE CONFIGURATIONS       |
 // ----------------------------------
 
-$config->useDb = false;
+$config->useDb = true;
 
 $config->localDB = [
 	'driver' => 'mysql',
 	'host' => 'localhost',
 	'port' => '3306',
 	'charset' => 'charset=utf8;',
-	'database' => '',
-	'user' => '',
+	'database' => 'automasites',
+	'user' => 'root',
 	'pass' => ''
 ];
 
