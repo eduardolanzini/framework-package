@@ -85,4 +85,13 @@ Class Auth{
 
 		return false;
 	}
+
+	public static function update($value,$new)
+	{
+		if (isset($_SESSION['userLogged'][$value])){
+			$_SESSION['userLogged'][$value] = $new;
+		}
+
+		return false;
+	}
 }

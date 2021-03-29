@@ -88,6 +88,10 @@ function img($path){
 	return PATH.'/img/'.$path;
 }
 
+function storage($path = null){
+	return PATH.'/storage/'.$path;
+}
+
 // First image on array
 function fImg($imagem)
 {
