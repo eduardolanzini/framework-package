@@ -24,33 +24,16 @@ Class Validate
 		}
 	}
 
-
 	public function name($name)
 	{
 		$this->name = $name;
 
 		if (array_key_exists($this->name,$this->input))
 		{
-			if (is_array($this->input[$this->name])) {
+			
+			$this->setvalue($this->input[$this->name]);
 
-				$arr = '';
-
-				foreach ($this->input[$this->name] as $key => $value) {
-
-					$arr .= $key.'='.$value.';';
-				}
-
-				$arr = substr($arr, 0,-1);
-
-				$this->setvalue($arr);
-
-				$this->values[$this->name] = $arr;
-
-			}else{
-				$this->setvalue($this->input[$this->name]);
-
-				$this->values[$this->name] = $this->input[$this->name];
-			}
+			$this->values[$this->name] = $this->input[$this->name];
 		}
 		else
 		{
@@ -67,6 +50,13 @@ Class Validate
 		$this->setvalue($value);
 
 		$this->values[$this->name] = $value;
+
+		return $this;
+	}
+
+	public function add($name,$value)
+	{
+		$this->insert($name,$value);
 
 		return $this;
 	}
@@ -103,9 +93,20 @@ Class Validate
 
 
 	public function string(){
-		if(!filter_var($this->value) && !empty($this->value)){
+		if(!empty($this->value) && !filter_var($this->value)){
 			$this->errors[] = "Formato de string inválido. ({$this->name})";
 		}
+		return $this;
+	}
+
+	public function array(){
+
+		if (!is_array($this->value)) {
+			$this->errors[] = "Formato de array inválido. ({$this->name})";
+		}
+
+		$this->values[$this->name] = serialize($this->values[$this->name]);
+
 		return $this;
 	}
 

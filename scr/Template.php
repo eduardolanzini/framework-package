@@ -38,8 +38,6 @@ Class Template{
 			extract($data);
 		}
 
-		//dd(self::$data);
-
 		if (file_exists(self::$path . DS . $file . '.php')) {
 			require self::$path . DS . $file . '.php';
 		}else{
@@ -70,19 +68,6 @@ Class Template{
 			self::$layout = self::$path . DS. $file . '.php' ;
 
 			ob_start();
-
-		}
-		else
-		{
-			Log::error('Template não existente');	
-		}
-	}
-
-	static function add($file){
-		if (file_exists(self::$path . DS. $file . '.php')) 
-		{
-
-			require self::$path . DS. $file . '.php' ;
 
 		}
 		else

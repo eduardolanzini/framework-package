@@ -2,16 +2,17 @@
 
 namespace EduardoLanzini\Framework;
 
+use EduardoLanzini\Framework\Acl;
+
 Class Auth{
+
+	private $permissions;
 
 	public static function check($level = null)
 	{
-		if (isset($_SESSION['userLogged']))
-		{
-			if ($level)
-			{
-				if ($_SESSION['userLogged']['level'] == $level)
-				{
+		if (isset($_SESSION['userLogged'])){
+			if ($level){
+				if ($_SESSION['userLogged']['level'] == $level){
 					return true;
 				}
 				return false;
@@ -21,20 +22,18 @@ Class Auth{
 		return false;
 	}
 
-	public static function getLevel()
+	public static function getId()
 	{
-		if (isset($_SESSION['userLogged']['level']))
-		{
-			return $_SESSION['userLogged']['level'];
+		if (isset($_SESSION['userLogged']['id'])){
+			return $_SESSION['userLogged']['id'];
 		}
 		return false;
 	}
 
-	public static function getId()
+	public static function getLevel()
 	{
-		if (isset($_SESSION['userLogged']['id']))
-		{
-			return $_SESSION['userLogged']['id'];
+		if (isset($_SESSION['userLogged']['group_id'])){
+			return $_SESSION['userLogged']['group_id'];
 		}
 		return false;
 	}
@@ -53,6 +52,32 @@ Class Auth{
 		return true;
 	}
 
+	public static function hasPermission($permission,$userId = null,$groupId = null)
+	{
+		if(!$userId){
+			$userId = self::get('id');
+		}
+		if(!$groupId){
+			$groupId = self::get('group_id');
+		}
+
+		return Acl::check($permission,$userId,$groupId);
+	}
+
+	public static function can($permission,$userId = null,$groupId = null)
+	{
+		return self::hasPermission($permission,$userId,$groupId);
+	}
+
+	public static function get($value)
+	{
+		if (isset($_SESSION['userLogged'][$value])){
+			return $_SESSION['userLogged'][$value];
+		}
+
+		return false;
+	}
+	/*
 	public static function hasPermission($role)
 	{
 		if (isset($_SESSION['userLogged']['permissions'])){
@@ -69,14 +94,11 @@ Class Auth{
 
 	public static function updatePermissions($roles)
 	{
-		//$roles = explode(';',$roles);
-
-		//$roles = implode(';',$roles);
-
-		//dd($roles);
 		$_SESSION['userLogged']['permissions'] = $roles;
 	}
+	*/
 
+	/*
 	public static function get($value)
 	{
 		if (isset($_SESSION['userLogged'][$value])){
@@ -94,4 +116,5 @@ Class Auth{
 
 		return false;
 	}
+	*/
 }

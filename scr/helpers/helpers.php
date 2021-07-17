@@ -16,20 +16,24 @@ function url($uri = null){
 	}
 }
 
-function redirect($uri = null, $msgTitle = null,$msg = null){
+function auth(){
+	
+	$auth = new EduardoLanzini\Framework\Auth;
 
-	if ($msgTitle) {
-		$_SESSION['msgTitle'] = $msgTitle;
-	}
+	return $auth;
+}
 
-	if ($msg) {
-		$_SESSION['msg'] = $msg;
-	}
+function middleware(){
+	
+	$middleware = new EduardoLanzini\Framework\Middleware;
+
+	return $middleware;
+}
+
+function redirect($uri = null){
 
 	//IMPORTANTE PARA MANTER A SESSION NO REDIRECT
 	session_write_close();
-
-	//var_dump(strpos($uri, 'http'));exit;
 
 	if (strstr($uri,'http')) {
 		header('location:'.$uri);
@@ -42,8 +46,46 @@ function redirect($uri = null, $msgTitle = null,$msg = null){
 		}
 	}
 
-	// VERY IMPORTANT
 	exit;
+}
+
+function back(){
+
+	//IMPORTANTE PARA MANTER A SESSION NO REDIRECT
+	session_write_close();
+
+	header('location:'.LAST_URL);
+
+	exit;
+}
+
+function toast($msg,$color = 'success'){
+	$_SESSION['toast'] = $msg;
+	$_SESSION['toastColor'] = $color;
+}
+
+function getToast(){
+
+	if (isset($_SESSION['toast'])) {
+		return $_SESSION['toast'];
+	}
+
+	return false;
+}
+
+function getToastColor(){
+
+	if (isset($_SESSION['toastColor'])) {
+		return $_SESSION['toastColor'];
+	}
+
+	return false;
+}
+
+
+function unsetToast(){
+	unset($_SESSION['toast']);
+	unset($_SESSION['toastColor']);
 }
 
 function setMsg($msgTitle,$msg = null){
@@ -124,19 +166,20 @@ function media($path)
 
 function view($path){
 
+	/* VARIABLES NOT WORKING */ 
 	$path = str_replace('\\', DS,$path);
 	$path = str_replace('/', DS, $path);
 	
-	require ROOT.DS.$path.".php";
+	include ROOT.DS.'app'.DS.'views'.DS.$path.".php";
 }
 
-function json($var = null){
-	if ($var) {
+function json($var){
+
 		header("Content-type: application/json; charset=utf-8");
-		return json_encode($var);
-	}else{
-		return false;
-	}
+
+		echo json_encode($var);
+
+		exit;
 }
 
 function data($date){
@@ -168,15 +211,15 @@ function stringToUrl($campo) {
 	return $campo; // Retorna campo
 }
 
-function stringToFloat($campo) {
+function stringToFloat($s) {
 
 	$filter1 = array("." => "");
 	$filter2 = array("," => "."); // array de substituição
 
-	$campo = strtr($campo, $filter1);
-	$campo = strtr($campo, $filter2); // Substitui acentos e espaços
+	$s = strtr($s, $filter1);
+	$s = strtr($s, $filter2); // Substitui acentos e espaços
 
-	return $campo; // Retorna campo
+	return (float)$s;
 }
 
 function remove_acentos($string){

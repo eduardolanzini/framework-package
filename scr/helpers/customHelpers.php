@@ -1,206 +1,139 @@
 <?php
 
-function statusContrato($status){
 
-	switch ($status) {
+function getProdutoColor($id){
 
-		case 'Ativo':
-		$status = "success";
-		break;
-
-		case 'Aguardando':
-		$status = "warning";
-		break;
-
-		case 'Concluído':
-		$status = "info";
-		break;
-
-		case 'Cancelado':
-		$status = "danger";
-		break;
-
-		case 'Atrasado':
-		$status = "danger";
-		break;
-	}
-
-	return $status;
-}
-
-
-function getstatus($status){
-
-	switch ($status) {
+	switch ($id) {
 
 		case '1':
-		$status = "Aguardando pagamento"; //LARANJA
+		return 'success';
 		break;
 
 		case '2':
-		$status = "Em análise"; // AMARELO
+		return 'danger';
 		break;
 
 		case '3':
-		$status = "Pago"; // VERDE
-		break;
-
-		case '4':
-		$status = "Disponível"; //AZUL
-		break;
-
-		case '5':
-		$status = "Em disputa"; //LARANJA
-		break;
-
-		case '6':
-		$status = "Devolvida"; //VERMELHO
-		break;
-
-		case '7':
-		$status = "Cancelada"; //VERMELHO
-		break;
-
-		case '8':
-		$status = "Debitado"; //LARANJA
-		break;
-
-		case '9':
-		$status = "Retenção temporária"; //VERMELHO
-		break;
-
-	}
-
-	return $status;
-}
-
-function getstatusFrete($status){
-
-	switch ($status) {
-
-		case '0':
-		$status = "Nulo";
-		break;
-
-		case '1':
-		$status = "Aguardando envio";
-		break;
-
-		case '2':
-		$status = "A caminho";
-		break;
-
-		case '3':
-		$status = "Entregue";
-		break;
-
-		case '4':
-		$status = "Cancelado";
+		return 'warning';
 		break;
 
 		default:
-		$status = "Sem Status definido";
-		Log::alert();
+		return 'info';
+		break;
 	}
-
-	return $status;
 }
 
-function getstatusColor($status){
+function getProdutoNome($id){
 
-	switch ($status) {
+	switch ($id) {
 
 		case '1':
-		$status = "orange-text";
+		return 'Ativo';
 		break;
 
 		case '2':
-		$status = "orange-text"; // AMARELO
+		return 'Inativo';
 		break;
 
 		case '3':
-		$status = "green-text"; // VERDE
+		return 'Esgotado';
 		break;
 
-		case '4':
-		$status = "blue-text"; //AZUL
+		default:
+		return 'info';
 		break;
-
-		case '5':
-		$status = "orange-text"; //LARANJA
-		break;
-
-		case '6':
-		$status = "red-text"; //VERMELHO
-		break;
-
-		case '7':
-		$status = "red-text"; //VERMELHO
-		break;
-
-		case '8':
-		$status = "orange-text"; //LARANJA
-		break;
-
-		case '9':
-		$status = "red-text"; //VERMELHO
-		break;
-
 	}
-
-	return $status;
 }
 
-function getStatusFreteColor($status){
+function categoriaStatus($id){
 
-	switch ($status) {
+	switch ($id) {
 
 		case '0':
-		$status = "orange-text";
+		return 'Inativo';
 		break;
 
 		case '1':
-		$status = "orange-text";
+		return 'Ativo';
 		break;
 
-		case '2':
-		$status = "green-text"; // AMARELO
-		break;
-
-		case '3':
-		$status = "green-text"; // VERDE
-		break;
-
-		case '4':
-		$status = "red-text"; //AZUL
+		default:
+		return 'Erro';
 		break;
 	}
-
-	return $status;
 }
 
-function formataData($data){
+function categoriaStatusColor($id){
 
-	//FORMATOS DE DATE
-	//https://www.php.net/manual/pt_BR/function.date.php
+	switch ($id) {
 
-	$datetime = new DateTime($data);
+		case '0':
+		return 'danger';
+		break;
 
-	$diaHoje = $datetime->format('j');
-	$array_meses = array(1 => "Janeiro", 2 => "Fevereiro", 3 => "Março", 4 => "Abril", 5 => "Maio", 6 => "Junho",
-		7 => "Julho", 8 => "Agosto", 9 => "Setembro", 10 => "Outubro", 11 => "Novembro", 12 => "Dezembro");
+		case '1':
+		return 'success';
+		break;
 
-	$horaAgora = $datetime->format('H:i');
-	$mesgetdate = $datetime->format('n');
-	$anoAtual = date('Y');
+		default:
+		return 'info';
+		break;
+	}
+}
 
-	return $diaHoje.' de '.$array_meses[$mesgetdate].' de '.$anoAtual.', às '.$horaAgora.'.';
+function prazoEntrega($v){
+	switch ($v) {
+		case 1:
+		return '10 minutos';
+		break;
+
+		case 2:
+		return '20 minutos';
+		break;
+
+		case 3:
+		return '30 minutos';
+		break;
+
+		case 4:
+		return '40 minutos';
+		break;
+
+
+		case 5:
+		return '50 minutos';
+		break;
+
+		case 6:
+		return '1 hora';
+		break;
+
+		case 7:
+		return '1 hora e 10 minutos';
+		break;
+
+		case 8:
+		return '1 hora e 20 minutos';
+		break;
+
+		case 9:
+		return '1 hora e 30 minutos';
+		break;
+
+		case 10:
+		return '1 hora e 40 minutos';
+		break;
+
+		case 11:
+		return '1 hora e 50 minutos';
+		break;
+
+		case 12:
+		return '2 horas';
+		break;
 	
-}
-
-function rastreamento($cod){
-
-	return 'https://linketrack.com/track?codigo='.$cod;
-
-	//return 'https://www.linkcorreios.com.br/'.$cod;
+		default:
+		return '---';
+		break;
+	}
 }

@@ -18,13 +18,10 @@ Class View{
 	{
 		$arquivoCache = ROOT.DS.'vendor'.DS.'automasites'.DS.'cache'.DS.$file.".html";
 
-		if (self::$cache)
-		{
-			if 
-				(
+		if (self::$cache){
+			if(
 					file_exists($arquivoCache) &&
 					filemtime($arquivoCache) > time() - self::$cacheTime
-
 				)
 			{
 				$conteudo = file_get_contents($arquivoCache);
