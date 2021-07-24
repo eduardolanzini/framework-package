@@ -13,7 +13,6 @@ Class Images
         self::$errors = null;
         self::$images = null;
 
-
         if (isset($_FILES[$img]['name'])) {
 
             $countfiles = count($_FILES[$img]['name']);
@@ -34,14 +33,19 @@ Class Images
 
                 $novoNome = mb_strtolower($nome);
 
+                $extensao = pathinfo($nome, PATHINFO_EXTENSION);
+
+                $ext = mb_strtolower($extensao);
+                
                 $ext1 = array(".png", ".jpeg",".jpg", ".gif", ".bmp");
                 $ext2 = array(" ", "(",")", "_");
 
                 $novoNome = str_replace($ext1, ".webp", $novoNome);
                 $novoNome = str_replace($ext2, "-", $novoNome);
 
-
                 $info = getimagesize($arquivo_tmp);
+
+
 
                 if(strstr('.webp',$ext) && $info['mime'] == 'image/webp'){
 
@@ -199,5 +203,5 @@ Class Images
         }
 
         return false;
-    ]
+    }
 }
