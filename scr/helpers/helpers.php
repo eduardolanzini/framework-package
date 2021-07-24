@@ -16,20 +16,24 @@ function url($uri = null){
 	}
 }
 
-function redirect($uri = null, $msgTitle = null,$msg = null){
+function auth(){
+	
+	$auth = new EduardoLanzini\Framework\Auth;
 
-	if ($msgTitle) {
-		$_SESSION['msgTitle'] = $msgTitle;
-	}
+	return $auth;
+}
 
-	if ($msg) {
-		$_SESSION['msg'] = $msg;
-	}
+function middleware(){
+	
+	$middleware = new EduardoLanzini\Framework\Middleware;
+
+	return $middleware;
+}
+
+function redirect($uri = null){
 
 	//IMPORTANTE PARA MANTER A SESSION NO REDIRECT
 	session_write_close();
-
-	//var_dump(strpos($uri, 'http'));exit;
 
 	if (strstr($uri,'http')) {
 		header('location:'.$uri);
@@ -41,6 +45,47 @@ function redirect($uri = null, $msgTitle = null,$msg = null){
 			header('location:'.PATH.'/'.$uri);
 		}
 	}
+
+	exit;
+}
+
+function back(){
+
+	//IMPORTANTE PARA MANTER A SESSION NO REDIRECT
+	session_write_close();
+
+	header('location:'.LAST_URL);
+
+	exit;
+}
+
+function toast($msg,$color = 'success'){
+	$_SESSION['toast'] = $msg;
+	$_SESSION['toastColor'] = $color;
+}
+
+function getToast(){
+
+	if (isset($_SESSION['toast'])) {
+		return $_SESSION['toast'];
+	}
+
+	return false;
+}
+
+function getToastColor(){
+
+	if (isset($_SESSION['toastColor'])) {
+		return $_SESSION['toastColor'];
+	}
+
+	return false;
+}
+
+
+function unsetToast(){
+	unset($_SESSION['toast']);
+	unset($_SESSION['toastColor']);
 }
 
 function setMsg($msgTitle,$msg = null){
@@ -55,13 +100,12 @@ function setMsg($msgTitle,$msg = null){
 function getMsgTitle(){
 	if (isset($_SESSION['msgTitle'])) {
 		echo $_SESSION['msgTitle'];
-		unset($_SESSION['msgTitle']);
 	}else{
 		return false;
 	}
 }
 
-function deleteMsg(){
+function unsetMsg(){
 	unset($_SESSION['msgTitle']);
 	unset($_SESSION['msg']);
 }
@@ -69,7 +113,6 @@ function deleteMsg(){
 function getMsg(){
 	if (isset($_SESSION['msg'])) {
 		echo $_SESSION['msg'];
-		unset($_SESSION['msg']);
 	}else{
 		return false;
 	}
@@ -85,6 +128,10 @@ function msg(){
 
 function img($path){
 	return PATH.'/img/'.$path;
+}
+
+function storage($path = null){
+	return PATH.'/storage/'.$path;
 }
 
 // First image on array
@@ -119,27 +166,36 @@ function media($path)
 
 function view($path){
 
+	/* VARIABLES NOT WORKING */ 
 	$path = str_replace('\\', DS,$path);
 	$path = str_replace('/', DS, $path);
 	
-	require ROOT.DS.$path.".php";
+	include ROOT.DS.'app'.DS.'views'.DS.$path.".php";
 }
 
-function json($var = null){
-	if ($var) {
+function json($var){
+
 		header("Content-type: application/json; charset=utf-8");
-		return json_encode($var);
-	}else{
-		return false;
-	}
+
+		echo json_encode($var);
+
+		exit;
 }
 
 function data($date){
+	return date('d/m/Y',strtotime($date));
+}
+
+function dataHora($date){
 	return date('d/m/Y à\s\ H:i:s',strtotime($date));
 }
 
+function hora($time){
+	return date( 'H:i', strtotime($time));
+}
+
 function reais($float){
-	$string = number_format($float, 2, ',', '.');
+	$string = number_format((float)$float, 2, ',', '.');
 	
 	return $string;
 }
@@ -159,15 +215,15 @@ function stringToUrl($campo) {
 	return $campo; // Retorna campo
 }
 
-function stringToFloat($campo) {
+function stringToFloat($s) {
 
 	$filter1 = array("." => "");
 	$filter2 = array("," => "."); // array de substituição
 
-	$campo = strtr($campo, $filter1);
-	$campo = strtr($campo, $filter2); // Substitui acentos e espaços
+	$s = strtr($s, $filter1);
+	$s = strtr($s, $filter2); // Substitui acentos e espaços
 
-	return $campo; // Retorna campo
+	return (float)$s;
 }
 
 function remove_acentos($string){
@@ -201,4 +257,48 @@ function remove_acentos($string){
 	);
 
 	return strtr($string, $map);
+}
+
+function mes($mes){
+	$map = array(
+		'1' => 'Janeiro',
+		'2' => 'Fevereiro',
+		'3' => 'Março',
+		'4' => 'Abril',
+		'5' => 'Maio',
+		'6' => 'Junho',
+		'7' => 'Julho',
+		'8' => 'Agosto',
+		'9' => 'Setembro',
+		'10' => 'Outubro',
+		'11' => 'Novembro',
+		'12' => 'Dezembro',
+	);
+
+	return strtr($mes, $map);
+}
+
+function elapsed_time(){
+
+	$time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+
+	$time = number_format($time, 2, ',', '.');
+
+	return $time;
+}
+
+function datetime($dt){
+	
+	$dt = str_replace(' ', 'T',$dt);
+
+	return $dt;
+}
+
+function googleMaps($end){
+
+	$end = str_replace(['-',' ','_'],'+',$end);
+
+	$link = "https://www.google.com.br/maps/place/{$end}";
+
+	return $link;
 }

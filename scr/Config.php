@@ -4,43 +4,49 @@ namespace EduardoLanzini\Framework;
 
 Class Config{
 
-	private $environment,$path,$email;
+	private $path,$email,$groups,$db;
 
-	public function getEnvironment()
-	{
-		return $this->environment;
+	public function getDB(){
+
+		if (empty($this->db['database']) || empty($this->db['user'])) {
+			return false;
+		}
+		
+		return $this->db;
 	}
 
-	public function getPath()
-	{
-		if ($this->environment == 'local')
-		{
-			return $this->localPath;
-		}
-		elseif($this->environment == 'production')
-		{
-			return $this->productionPath;
-		}
-		else
-		{
-			Log::error('Environment não informado');
-		}
+	public function getRoot(){
+		return $this->root;
+	}
+
+	public function getPath(){
+		return $this->path;
 	}
 
 	public function getEmail(){
 		return $this->email;
 	}
 
-	public function setEnvironment($env){
-		$this->environment = $env;
+	public function setRoot($root){
+		$this->root = $root;
 	}
 
-	public function setLocalPath($path){
-		$this->localPath = $path;
+	public function setPath($path){
+		$this->path = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$path;
 	}
 
-	public function setProductionPath($path){
-		$this->productionPath = $path;
+	public function setGroups(array $groups)
+	{
+		$this->groups = $groups;
+	}
+
+	public function getGroups()
+	{
+		return $this->groups;
+	}
+
+	public function setDB($db){
+		$this->db = $db;
 	}
 
 	public function setEmail($email)
@@ -64,18 +70,4 @@ Class Config{
 		date_default_timezone_set($timezone);
 	}
 
-	public function getDb()
-	{
-		if ($this->environment == 'local') {
-			return $this->localDB;
-		}
-		elseif ($this->environment == 'production') {
-
-			return $this->productionDB;
-		}
-		else {
-			Log::error('Environment não informado');
-		}
-	}
-	
 }
