@@ -189,15 +189,15 @@ Class Images
 
     public static function getErrors(){
 
-      if (!empty(self::$errors)) {
+        if (!empty(self::$errors)) {
 
-         foreach(self::$errors as $error)
-         {
-            $errors .= "<p>{$error}</p><br>";
+            foreach(self::$errors as $error){
+                $errors .= "<p>{$error}</p><br>";
+            }
+
+            return $errors;
         }
 
-        return $errors;
-    }
-
-    return false;
+        return false;
+    ]
 }
