@@ -292,6 +292,7 @@ function datetime($dt){
 	$dt = str_replace(' ', 'T',$dt);
 
 	return $dt;
+
 }
 
 function googleMaps($end){

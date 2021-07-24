@@ -13,6 +13,7 @@ Class Images
         self::$errors = null;
         self::$images = null;
 
+
         if (isset($_FILES[$img]['name'])) {
 
             $countfiles = count($_FILES[$img]['name']);
@@ -39,9 +40,6 @@ Class Images
                 $novoNome = str_replace($ext1, ".webp", $novoNome);
                 $novoNome = str_replace($ext2, "-", $novoNome);
 
-                $extensao = pathinfo ($nome, PATHINFO_EXTENSION);
-
-                $ext = mb_strtolower($extensao);
 
                 $info = getimagesize($arquivo_tmp);
 
@@ -60,14 +58,9 @@ Class Images
 
                 elseif (strstr('.jpg;.jpeg;.gif;.png;.bmp',$ext)) {
 
-                    //$quality = 95;
-                    //$width = 1500;
-                    //$height = 1500;
 
+                    $info = getimagesize($arquivo_tmp);
 
-                    //list($width_orig, $height_orig, $tipo, $atributo) = getimagesize($arquivo_tmp);
-
-                    //dd($info);
 
                     if ($info[0] > $width || $info[1] > $height) {
                         if($info[0] > $info[1]){
@@ -120,6 +113,17 @@ Class Images
                     }
                     */
 
+
+                    $novoNome = mb_strtolower($nome);
+
+                    $ext1 = array(".png", ".jpeg",".jpg", ".gif", ".bmp");
+                    $ext2 = array(" ", "(",")", "_");
+
+                    $novoNome = str_replace($ext1, ".webp", $novoNome);
+                    $novoNome = str_replace($ext2, "-", $novoNome);
+
+
+
                     if ($info['mime'] == 'image/jpeg') {
                         $origem = imagecreatefromjpeg($arquivo_tmp);
                     }elseif($info['mime'] == 'image/png'){
@@ -127,8 +131,9 @@ Class Images
                     }elseif($info['mime'] == 'image/bmp'){
                         $origem = imagecreatefrombmp($arquivo_tmp);
                     }
+
                     else{
-                        self::$errors[] = 'Formato de imagem ( '.$ext.' ) inválido! Formatos aceitos: jpg, jpeg, png e bmp.';
+                        self::$errors[] = 'Formato de imagem ( '.$ext.' ) inválido! Formatos aceitos: jpg, jpeg, png, webp e bmp.';
 
                         return false;
                     }
@@ -181,18 +186,18 @@ Class Images
     	return self::$images;
     }
 
+
     public static function getErrors(){
 
       if (!empty(self::$errors)) {
 
-       foreach(self::$errors as $error)
-       {
-        $errors .= "<p>{$error}</p><br>";
+         foreach(self::$errors as $error)
+         {
+            $errors .= "<p>{$error}</p><br>";
+        }
+
+        return $errors;
     }
 
-    return $errors;
-}
-
-return false;
-}
+    return false;
 }

@@ -73,6 +73,7 @@ function categoriaStatusColor($id){
 
 		case '1':
 		return 'success';
+
 		break;
 
 		default:
@@ -170,8 +171,7 @@ function getSemana($num){
 		break;
 
 		default:
-			return 'erro';
+		return 'erro';
 		break;
 	}
-
 }
