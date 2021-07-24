@@ -13,7 +13,6 @@ Class Images
         self::$errors = null;
         self::$images = null;
 
-
         if (isset($_FILES[$img]['name'])) {
 
             $countfiles = count($_FILES[$img]['name']);
@@ -37,7 +36,11 @@ Class Images
                 $extensao = pathinfo($nome, PATHINFO_EXTENSION);
 
                 $ext = mb_strtolower($extensao);
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 6a3d46622cc45c2c15681b7088f6129c663d8ac1
                 $ext1 = array(".png", ".jpeg",".jpg", ".gif", ".bmp");
                 $ext2 = array(" ", "(",")", "_");
 
@@ -45,6 +48,8 @@ Class Images
                 $novoNome = str_replace($ext2, "-", $novoNome);
 
                 $info = getimagesize($arquivo_tmp);
+
+
 
                 if(strstr('.webp',$ext) && $info['mime'] == 'image/webp'){
 
@@ -193,11 +198,19 @@ Class Images
     public static function getErrors(){
 
         if (!empty(self::$errors)) {
+<<<<<<< HEAD
 
             foreach(self::$errors as $error){
                 $errors .= "<p>{$error}</p><br>";
             }
 
+=======
+
+            foreach(self::$errors as $error){
+                $errors .= "<p>{$error}</p><br>";
+            }
+
+>>>>>>> 6a3d46622cc45c2c15681b7088f6129c663d8ac1
             return $errors;
         }
 
