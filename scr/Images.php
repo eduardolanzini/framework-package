@@ -188,7 +188,6 @@ Class Images
     	return self::$images;
     }
 
-
     public static function getErrors(){
 
         if (!empty(self::$errors)) {
