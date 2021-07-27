@@ -36,7 +36,7 @@ Class Images
                 $extensao = pathinfo($nome, PATHINFO_EXTENSION);
 
                 $ext = mb_strtolower($extensao);
-                
+
                 $ext1 = array(".png", ".jpeg",".jpg", ".gif", ".bmp");
                 $ext2 = array(" ", "(",")", "_");
 
@@ -44,8 +44,6 @@ Class Images
                 $novoNome = str_replace($ext2, "-", $novoNome);
 
                 $info = getimagesize($arquivo_tmp);
-
-
 
                 if(strstr('.webp',$ext) && $info['mime'] == 'image/webp'){
 

@@ -1,5 +1,26 @@
 <?php
 
+function statusPlano($id){
+
+		switch ($id) {
+
+		case '0':
+		return 'Inativo';
+		break;
+
+		case '1':
+		return 'Avaliação';
+		break;
+
+		case '2':
+		return 'Ativo';
+		break;
+
+		default:
+		return 'Erro';
+		break;
+	}
+}
 
 function getProdutoColor($id){
 
@@ -168,6 +189,43 @@ function getSemana($num){
 
 		case 7:
 		return 'domingo';
+		break;
+
+		default:
+		return 'erro';
+		break;
+	}
+}
+
+function getSemanaExtenso($num){
+
+	switch ($num) {
+		case 1:
+		return 'Segunda';
+		break;
+
+		case 2:
+		return 'Terça';
+		break;
+
+		case 3:
+		return 'Quarta';
+		break;
+
+		case 4:
+		return 'Quinta';
+		break;
+
+		case 5:
+		return 'Sexta';
+		break;
+
+		case 6:
+		return 'Sábado';
+		break;
+
+		case 7:
+		return 'Domingo';
 		break;
 
 		default:
