@@ -122,9 +122,20 @@ Class Validate
 	}
 
 	public function int(){
-		if(!filter_var($this->value, FILTER_VALIDATE_INT)){
+		if(filter_var($this->value, FILTER_VALIDATE_INT) === false){
 			$this->errors[] = 'Formato inteiro inválido.';
 		}
+		return $this;
+	}
+
+	public function int_sanitize(){
+		if(!filter_var($this->value, FILTER_SANITIZE_NUMBER_INT)){
+			$this->errors[] = 'Formato inteiro inválido.';
+		}
+
+		$val = str_replace('-','',$this->value);
+
+		$this->values[$this->name] = filter_var($val, FILTER_SANITIZE_NUMBER_INT);
 		return $this;
 	}
 

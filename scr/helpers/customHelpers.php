@@ -1,5 +1,45 @@
 <?php
 
+function statusEntrega($id){
+
+		switch ($id) {
+
+		case 'tele':
+		return 'Tele-entrega';
+		break;
+
+		case 'loja':
+		return 'Retirar na loja';
+		break;
+
+		default:
+		return 'Erro';
+		break;
+	}
+}
+
+function statusPagamento($id){
+
+		switch ($id) {
+
+		case 'dinheiro':
+		return 'Dinheiro';
+		break;
+
+		case 'credito':
+		return 'Crédito';
+		break;
+
+		case 'debito':
+		return 'Débito';
+		break;
+
+		default:
+		return $id;
+		break;
+	}
+}
+
 function statusPlano($id){
 
 		switch ($id) {

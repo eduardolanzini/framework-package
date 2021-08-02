@@ -206,13 +206,19 @@ function stringToUrl($campo) {
 
 	$padraoreplace = "[^a-zA-Z0-9_]"; // Determina que apenas letras e números e underlines poderão existir
 
-	$array_s = array("á" => "a", "à" => "a", "â" => "a", "ã" => "a", "ä" => "a", "é" => "e", "è" => "e", "ê" => "e", "ë" => "e", "í" => "i", "î" => "i", "ì" => "i", "ï" => "i", "ô" => "o", "õ" => "o", "ó" => "o", "ò" => "o", "ö" => "o", "ú" => "u", "ù" => "u", "û" => "u", "ü" => "u", "ñ" => "n", "ç" => "c", " " => "_"); // array de substituição
+	$array_s = array("á" => "a", "à" => "a", "â" => "a", "ã" => "a", "ä" => "a", "é" => "e", "è" => "e", "ê" => "e", "ë" => "e", "í" => "i", "î" => "i", "ì" => "i", "ï" => "i", "ô" => "o", "õ" => "o", "ó" => "o", "ò" => "o", "ö" => "o", "ú" => "u", "ù" => "u", "û" => "u", "ü" => "u", "ñ" => "n", "ç" => "c", " " => "-"); // array de substituição
 
 	$campo = strtr($campo, $array_s); // Substitui acentos e espaços
 
 	$campo = preg_replace($padraoreplace, "", $campo); // Substitui caracteres especiais por caractere vazio
 
 	return $campo; // Retorna campo
+}
+
+function stringToUrl2($string){
+    $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+    $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
+    return str_replace($entities, $replacements, urlencode($string));
 }
 
 function stringToFloat($s) {
@@ -300,6 +306,15 @@ function googleMaps($end){
 	$end = str_replace(['-',' ','_'],'+',$end);
 
 	$link = "https://www.google.com.br/maps/place/{$end}";
+
+	return $link;
+}
+
+function googleMapsEmbed($end){
+
+	$end = str_replace(['-',' ','_'],'+',$end);
+
+	$link = "https://www.google.com.br/maps/embed/{$end}";
 
 	return $link;
 }
